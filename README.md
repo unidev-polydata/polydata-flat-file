@@ -2,6 +2,11 @@
 
 Flat file storage of poly records
 
+polydata-flat-file-storage - flat file poly storage
+
+polydata-flat-file-storage-manager - module for managing multiple flat file storages
+
+
 License
 =======
  
