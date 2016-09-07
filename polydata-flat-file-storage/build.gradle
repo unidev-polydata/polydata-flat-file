@@ -1,6 +1,6 @@
 dependencies {
-    compile "com.unidev.polydata:polydata-domain:$project.unidevPlatformVersion"
-    compile "com.unidev.polydata:polydata-storage:$project.unidevPlatformVersion"
+    compile "com.unidev.polydata:polydata-domain:$project.polydataDomain"
+    compile "com.unidev.polydata:polydata-storage:$project.polydataDomain"
 
     compile "com.unidev.platform:unidev-exception:$project.unidevPlatformVersion"
     compile "com.fasterxml.jackson.core:jackson-databind:2.8.1"
