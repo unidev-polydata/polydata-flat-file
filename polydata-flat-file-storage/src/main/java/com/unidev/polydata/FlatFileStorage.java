@@ -9,6 +9,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Flat file poly storage
+ */
 public class FlatFileStorage implements PolyStorageWithMetadata {
 
     private BasicPoly metadata;
