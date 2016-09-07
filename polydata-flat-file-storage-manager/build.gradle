@@ -1,5 +1,4 @@
 dependencies {
-    compile "com.unidev.platform:unidev-utils:$project.unidevPlatformVersion"
     compile project(':polydata-flat-file-storage')
 }
 
