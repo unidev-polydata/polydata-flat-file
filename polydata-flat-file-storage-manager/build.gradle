@@ -1,0 +1,5 @@
+dependencies {
+    compile project(':polydata-flat-file-storage')
+}
+
+
