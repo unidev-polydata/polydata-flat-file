@@ -1,0 +1,18 @@
+{
+  "metadata" : {
+    "_id" : "metadata_id",
+    "tomato" : "potato"
+  },
+  "list" : [
+    {
+      "link" : "tomato2",
+      "_id" : "2"
+    },
+    {
+      "custom_key" : "custom_value",
+    "link" : "tomato",
+    "_id" : "1"
+    }
+
+  ]
+}
