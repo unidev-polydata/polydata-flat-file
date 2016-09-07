@@ -56,6 +56,32 @@ public class FlatFileStorage implements PolyStorageWithMetadata {
         return sb.toString();
     }
 
+    public FlatFileStorage add(BasicPoly poly) {
+        list.add(poly);
+        return this;
+    }
+
+    public FlatFileStorage addFirst(BasicPoly poly) {
+        list.add(0, poly);
+        return this;
+    }
+
+    public FlatFileStorage remove(String id) {
+        Poly poly = fetchById(id);
+        if (poly != null) {
+            list.remove(poly);
+        }
+        return this;
+    }
+
+    public boolean hasPoly(String id) {
+        if (fetchById(id) != null) {
+            return true;
+        }
+        return false;
+    }
+
+
     public BasicPoly metadata() {
         return metadata;
     }
