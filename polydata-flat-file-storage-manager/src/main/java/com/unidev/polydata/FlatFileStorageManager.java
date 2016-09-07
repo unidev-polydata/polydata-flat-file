@@ -8,7 +8,7 @@ import java.util.Optional;
 
 /**
  * Flat file hierarchic storage for poly records
- * Manager operate a index file which link other stroages
+ * Manager operate a index file which link other storages
  *
  */
 public class FlatFileStorageManager {
