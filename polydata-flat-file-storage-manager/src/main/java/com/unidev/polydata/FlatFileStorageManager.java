@@ -4,7 +4,6 @@ import com.unidev.polydata.domain.BasicPoly;
 import com.unidev.polydata.domain.Poly;
 
 import java.io.File;
-import java.util.Optional;
 
 /**
  * Flat file hierarchic storage for poly records
@@ -75,7 +74,7 @@ public class FlatFileStorageManager {
             storage = new FlatFileStorage();
         }
         storage.add(poly);
-
+        indexPoly.put("count", storage.list().size());
 
         FlatFileStorageMapper.storageMapper().saveSource(storageFile).save(storage);
         saveIndex();
