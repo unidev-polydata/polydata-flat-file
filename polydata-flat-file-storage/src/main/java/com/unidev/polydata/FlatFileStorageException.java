@@ -1,11 +1,9 @@
 package com.unidev.polydata;
 
-import com.unidev.platform.common.exception.CommonRuntimeException;
-
 /**
  * Storage exception,  thrown if something went wrong...
  */
-public class FlatFileStorageException extends CommonRuntimeException {
+public class FlatFileStorageException extends RuntimeException {
 
     public FlatFileStorageException() {
     }
