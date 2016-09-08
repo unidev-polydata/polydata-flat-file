@@ -43,9 +43,9 @@ public class TestFlatFileStorageManager {
 
         assertThat(anotherManager.index(), is(not(nullValue())));
 
-        Optional<FlatFileStorage> flatFileStorage = anotherManager.fetchStorage("index2");
-        assertThat(flatFileStorage.isPresent(), is(true));
-        assertThat(flatFileStorage.get().list().size(), is(1));
+        FlatFileStorage flatFileStorage = anotherManager.fetchStorage("index2");
+        assertThat(flatFileStorage, is(not(nullValue())));
+        assertThat(flatFileStorage.list().size(), is(1));
 
     }
 

@@ -86,16 +86,16 @@ public class FlatFileStorageManager {
      * @param indexName
      * @return
      */
-    public Optional<FlatFileStorage> fetchStorage(String indexName) {
+    public FlatFileStorage fetchStorage(String indexName) {
         if (!index.hasPoly(indexName)) {
-            return Optional.empty();
+            return null;
         }
         Poly indexPoly = index.fetchById(indexName);
         File storageFile = new File(storageRoot, indexPoly.link());
         if (!storageFile.exists()) {
-            return Optional.empty();
+            return null;
         }
-        return Optional.of(FlatFileStorageMapper.storageMapper().loadSource(storageFile).load());
+        return FlatFileStorageMapper.storageMapper().loadSource(storageFile).load();
     }
 
 

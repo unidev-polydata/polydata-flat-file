@@ -8,7 +8,6 @@ import com.unidev.polydata.storage.PolyStorageWithMetadata;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Flat file poly storage
@@ -35,10 +34,13 @@ public class FlatFileStorage implements PolyStorageWithMetadata {
 
     @Override
     public <T extends Poly> T fetchById(String id) {
-        Optional<BasicPoly> polyOptional = list.stream().filter(poly -> id.equals(poly._id())).findFirst();
-        if (polyOptional.isPresent()) {
-            return (T) polyOptional.get();
+
+        for(BasicPoly poly : list) {
+            if (id.equalsIgnoreCase(poly._id())) {
+                return (T) poly;
+            }
         }
+
         return null;
     }
 

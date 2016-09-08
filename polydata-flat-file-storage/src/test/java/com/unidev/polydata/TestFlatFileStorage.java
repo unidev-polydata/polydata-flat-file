@@ -45,7 +45,7 @@ public class TestFlatFileStorage {
 
         assertThat(storage.list().size(), is(2));
         assertThat(storage.getList().get(1).link(), is("tomato"));
-        assertThat(storage.getList().get(1).fetch("custom_key"), is("custom_value"));
+        assertThat((String)storage.getList().get(1).fetch("custom_key"), is("custom_value"));
     }
 
 }
