@@ -5,6 +5,7 @@ import com.unidev.polydata.domain.BasicPoly;
 import com.unidev.polydata.domain.Poly;
 import com.unidev.polydata.storage.PolyStorageWithMetadata;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * Flat file poly storage
  */
-public class FlatFileStorage implements PolyStorageWithMetadata {
+public class FlatFileStorage implements PolyStorageWithMetadata, Serializable {
 
     private BasicPoly metadata;
     private List<BasicPoly> list;
