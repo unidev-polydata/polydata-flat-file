@@ -56,13 +56,23 @@ public class FlatFileStorageManager {
     }
 
     /**
+     * Generate link where should be stored poly
+     * @param indexName
+     * @param poly
+     * @return
+     */
+    public String genPolyLink(String indexName, BasicPoly poly) {
+        return indexName + ".json";
+    }
+
+    /**
      * Add poly to index
      * @param indexName
      * @param poly
      */
     public void save(String indexName, BasicPoly poly) {
         if (!index.hasPoly(indexName)) {
-            BasicPoly indexPoly = new BasicPoly()._id(indexName).link(indexName + ".json");
+            BasicPoly indexPoly = new BasicPoly()._id(indexName).link(genPolyLink(indexName, poly));
             index.add(indexPoly);
         }
         Poly indexPoly = index.fetchById(indexName);
@@ -74,7 +84,8 @@ public class FlatFileStorageManager {
             storage = new FlatFileStorage();
         }
         storage.add(poly);
-        indexPoly.put("count", storage.list().size());
+        indexPoly.put("count", storage.list().size()); // maintain item count in each index
+        indexPoly.put("lastUpdate", System.currentTimeMillis()); // last update of index, should help with caching
 
         FlatFileStorageMapper.storageMapper().saveSource(storageFile).save(storage);
         saveIndex();

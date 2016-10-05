@@ -25,7 +25,12 @@ public class TestFlatFileStorageManager {
     @Test
     public void testStorageManagerSaveLoad() {
 
-        FlatFileStorageManager flatFileStorageManager = new FlatFileStorageManager(root.getRoot());
+        FlatFileStorageManager flatFileStorageManager = new FlatFileStorageManager(root.getRoot()) {
+            @Override
+            public String genPolyLink(String indexName, BasicPoly poly) {
+                return indexName.hashCode() + ".json";
+            }
+        };
 
         BasicPoly basicPoly = new BasicPoly();
         basicPoly._id("test1");
