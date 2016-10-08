@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Flat file poly storage
+ * Flat file poly storage, storage is separated in metadata poly and list of records
  */
 public class FlatFileStorage implements PolyStorageWithMetadata, Serializable {
 
@@ -46,7 +46,7 @@ public class FlatFileStorage implements PolyStorageWithMetadata, Serializable {
     }
 
     @Override
-    public Collection<? extends Poly> list() {
+    public List<? extends Poly> list() {
         return list;
     }
 
