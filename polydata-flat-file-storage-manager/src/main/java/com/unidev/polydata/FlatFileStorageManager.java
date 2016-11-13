@@ -71,6 +71,7 @@ public class FlatFileStorageManager {
      * @param poly
      */
     public void save(String indexName, BasicPoly poly) {
+
         if (!index.hasPoly(indexName)) {
             BasicPoly indexPoly = new BasicPoly()._id(indexName).link(genPolyLink(indexName, poly));
             index.add(indexPoly);

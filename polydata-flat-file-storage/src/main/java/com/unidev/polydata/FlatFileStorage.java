@@ -68,6 +68,22 @@ public class FlatFileStorage implements ChangablePolyStorage {
         return list.size();
     }
 
+    public boolean hasPoly(String id) {
+        if (fetchById(id) != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public FlatFileStorage add(BasicPoly poly) {
+        list.add(poly);
+        return this;
+    }
+
+    public FlatFileStorage addFirst(BasicPoly poly) {
+        list.add(0, poly);
+        return this;
+    }
 
     public void withMetadata(BasicPoly metadata) {
         this.metadata = metadata;

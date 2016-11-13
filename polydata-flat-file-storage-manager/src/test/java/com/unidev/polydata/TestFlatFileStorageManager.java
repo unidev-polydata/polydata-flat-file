@@ -12,8 +12,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 
-import java.io.File;
-import java.util.Optional;
 
 public class TestFlatFileStorageManager {
 
