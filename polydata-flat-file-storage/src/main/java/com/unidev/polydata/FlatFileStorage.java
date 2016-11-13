@@ -80,4 +80,12 @@ public class FlatFileStorage implements ChangablePolyStorage {
     public void setList(List<BasicPoly> list) {
         this.list = list;
     }
+
+    public BasicPoly getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(BasicPoly metadata) {
+        this.metadata = metadata;
+    }
 }

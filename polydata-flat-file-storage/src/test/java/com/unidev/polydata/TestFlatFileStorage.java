@@ -40,8 +40,8 @@ public class TestFlatFileStorage {
         FlatFileStorage storage = FlatFileStorageMapper.storageMapper().loadSource(inputStream).load();
 
         assertThat(storage, is(not(nullValue())));
-        assertThat(storage.getMetadata(), is(not(nullValue())));
-        assertThat(storage.getMetadata()._id(), is ("metadata_id"));
+        assertThat(storage.metadata(), is(not(nullValue())));
+        assertThat(storage.metadata()._id(), is ("metadata_id"));
 
         assertThat(storage.list().size(), is(2));
         assertThat(storage.getList().get(1).link(), is("tomato"));
