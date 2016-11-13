@@ -3,9 +3,8 @@ package com.unidev.polydata;
 
 import com.unidev.polydata.domain.BasicPoly;
 import com.unidev.polydata.domain.Poly;
-import com.unidev.polydata.storage.PolyStorageWithMetadata;
+import com.unidev.polydata.storage.ChangablePolyStorage;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
 /**
  * Flat file poly storage, storage is separated in metadata poly and list of records
  */
-public class FlatFileStorage implements PolyStorageWithMetadata, Serializable {
+public class FlatFileStorage implements ChangablePolyStorage {
 
     private BasicPoly metadata;
     private List<BasicPoly> list;
@@ -29,71 +28,48 @@ public class FlatFileStorage implements PolyStorageWithMetadata, Serializable {
     }
 
     @Override
-    public Poly fetchMetadata() {
-        return metadata;
+    public <P extends Poly> P persist(P poly) {
+        list.add((BasicPoly) poly);
+        return poly;
     }
 
     @Override
-    public <T extends Poly> T fetchById(String id) {
-
-        for(BasicPoly poly : list) {
-            if (id.equalsIgnoreCase(poly._id())) {
-                return (T) poly;
-            }
-        }
-
-        return null;
-    }
-
-    @Override
-    public List<? extends Poly> list() {
-        return list;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("FlatFileStorage{");
-        sb.append("metadata=").append(metadata);
-        sb.append(", polylist=").append(list);
-        sb.append('}');
-        return sb.toString();
-    }
-
-    public FlatFileStorage add(BasicPoly poly) {
-        list.add(poly);
-        return this;
-    }
-
-    public FlatFileStorage addFirst(BasicPoly poly) {
-        list.add(0, poly);
-        return this;
-    }
-
-    public FlatFileStorage remove(String id) {
+    public boolean remove(String id) {
         Poly poly = fetchById(id);
         if (poly != null) {
             list.remove(poly);
-        }
-        return this;
-    }
-
-    public boolean hasPoly(String id) {
-        if (fetchById(id) != null) {
             return true;
         }
         return false;
     }
 
-
-    public BasicPoly metadata() {
-        return metadata;
+    @Override
+    public <P extends Poly> P metadata() {
+        return (P) metadata;
     }
 
-    public BasicPoly getMetadata() {
-        return metadata;
+    @Override
+    public <P extends Poly> P fetchById(String id) {
+        for(Poly poly : list) {
+            if (id.equalsIgnoreCase(poly._id())) {
+                return (P) poly;
+            }
+        }
+        return null;
     }
 
-    public void setMetadata(BasicPoly metadata) {
+    @Override
+    public Collection<? extends Poly> list() {
+        return list;
+    }
+
+    @Override
+    public long size() {
+        return list.size();
+    }
+
+
+    public void withMetadata(BasicPoly metadata) {
         this.metadata = metadata;
     }
 
