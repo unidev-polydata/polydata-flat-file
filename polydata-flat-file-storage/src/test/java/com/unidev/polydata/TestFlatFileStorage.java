@@ -1,6 +1,7 @@
 package com.unidev.polydata;
 
 import com.unidev.polydata.domain.BasicPoly;
+import com.unidev.polydata.domain.Poly;
 import org.junit.Test;
 
 import java.io.File;
@@ -61,6 +62,22 @@ public class TestFlatFileStorage {
 
         flatFileStorage.remove("1");
         assertThat(flatFileStorage.hasPoly("1"), is(false));
+    }
+
+    @Test
+    public void testFetchById() {
+        FlatFileStorage flatFileStorage = new FlatFileStorage();
+        BasicPoly basicPoly = new BasicPoly()._id("potato_id").link("tomato");
+
+        Poly poly = flatFileStorage.fetchById("potato_id");
+        assertThat(poly, is(nullValue()));
+
+        flatFileStorage.persist(basicPoly);
+
+
+        Poly persistedPoly = flatFileStorage.fetchById("potato_id");
+        assertThat(persistedPoly, is(not(nullValue())));
+        assertThat(persistedPoly._id(), is("potato_id"));
     }
 
 }
