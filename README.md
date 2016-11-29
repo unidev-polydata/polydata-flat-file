@@ -6,6 +6,14 @@ polydata-flat-file-storage - flat file poly storage
 
 polydata-flat-file-storage-manager - module for managing multiple flat file storages
 
+Dependencies
+============
+
+```
+com.unidev.polydata:polydata-flat-file-storage:2.1.0-SNAPSHOT
+com.unidev.polydata:polydata-flat-file-storage-manager:2.1.0-SNAPSHOT
+```
+
 
 License
 =======
