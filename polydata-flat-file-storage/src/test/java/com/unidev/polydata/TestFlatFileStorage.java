@@ -26,7 +26,7 @@ public class TestFlatFileStorage {
         flatFileStorage.metadata().put("tomato", "potato");
 
         BasicPoly basicPoly = new BasicPoly()._id("1").link("tomato");
-        flatFileStorage.getList().add(basicPoly);
+        flatFileStorage.persist(basicPoly);
 
         File tempFile = File.createTempFile("storage", ".json");
         tempFile.deleteOnExit();
@@ -46,6 +46,21 @@ public class TestFlatFileStorage {
         assertThat(storage.list().size(), is(2));
         assertThat(storage.getList().get(1).link(), is("tomato"));
         assertThat((String)storage.getList().get(1).fetch("custom_key"), is("custom_value"));
+    }
+
+    @Test
+    public void testPolyRemoval() {
+        FlatFileStorage flatFileStorage = new FlatFileStorage();
+
+        BasicPoly basicPoly = new BasicPoly()._id("1").link("tomato");
+
+        assertThat(flatFileStorage.hasPoly("1"), is(false));
+
+        flatFileStorage.persist(basicPoly);
+        assertThat(flatFileStorage.hasPoly("1"), is(true));
+
+        flatFileStorage.remove("1");
+        assertThat(flatFileStorage.hasPoly("1"), is(false));
     }
 
 }
