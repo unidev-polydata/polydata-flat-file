@@ -61,8 +61,16 @@ public class TestFlatFileStorage {
         flatFileStorage.persist(basicPoly);
         assertThat(flatFileStorage.hasPoly("1"), is(true));
 
-        flatFileStorage.remove("1");
+        boolean removeResult = flatFileStorage.remove("1");
+        assertThat(removeResult, is(true));
+
         assertThat(flatFileStorage.hasPoly("1"), is(false));
+
+        removeResult = flatFileStorage.remove("1");
+        assertThat(removeResult, is(false));
+
+        removeResult = flatFileStorage.remove("2");
+        assertThat(removeResult, is(false));
     }
 
     @Test
