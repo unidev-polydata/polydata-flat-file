@@ -76,7 +76,7 @@ public class FlatFileStorage implements ChangablePolyStorage {
     }
 
     public FlatFileStorage add(BasicPoly poly) {
-        list.add(poly);
+        persist(poly);
         return this;
     }
 
