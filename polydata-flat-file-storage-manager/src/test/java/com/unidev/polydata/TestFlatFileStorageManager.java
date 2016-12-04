@@ -41,14 +41,23 @@ public class TestFlatFileStorageManager {
 
         flatFileStorageManager.save("index2", basicPoly);
 
+        basicPoly = BasicPoly.newPoly("tomato2");
+        basicPoly.put("qwe", "123");
+
+        flatFileStorageManager.save("index2", basicPoly);
+
 
         FlatFileStorageManager anotherManager = new FlatFileStorageManager(root.getRoot());
 
         assertThat(anotherManager.index(), is(not(nullValue())));
 
-        FlatFileStorage flatFileStorage = anotherManager.fetchStorage("index2");
+        FlatFileStorage flatFileStorage = anotherManager.fetchStorage("index1");
         assertThat(flatFileStorage, is(not(nullValue())));
         assertThat(flatFileStorage.list().size(), is(1));
+
+        FlatFileStorage flatFileStorageIndex2 = anotherManager.fetchStorage("index2");
+        assertThat(flatFileStorageIndex2, is(not(nullValue())));
+        assertThat(flatFileStorageIndex2.list().size(), is(2));
 
     }
 
