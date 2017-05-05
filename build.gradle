@@ -1,5 +1,5 @@
 project.ext.unidevPlatformVersion = "2.0.0"
-project.ext.polydataDomain = "2.2.0-SNAPSHOT"
+project.ext.polydata = "2.1.0"
 
 
 subprojects {

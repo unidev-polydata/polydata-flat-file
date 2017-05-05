@@ -1,6 +1,5 @@
 dependencies {
     compile project(':polydata-flat-file-storage')
-    compile "com.unidev.polydata:polydata-manager:$project.polydataDomain"
 }
 
 
