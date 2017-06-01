@@ -53,11 +53,11 @@ public class TestFlatFileStorageManager {
 
         FlatFileStorage flatFileStorage = anotherManager.fetchStorage("index1");
         assertThat(flatFileStorage, is(not(nullValue())));
-        assertThat(flatFileStorage.list().size(), is(1));
+        assertThat(flatFileStorage.getPolyBucket().getPolys().size(), is(1));
 
         FlatFileStorage flatFileStorageIndex2 = anotherManager.fetchStorage("index2");
         assertThat(flatFileStorageIndex2, is(not(nullValue())));
-        assertThat(flatFileStorageIndex2.list().size(), is(2));
+        assertThat(flatFileStorageIndex2.getPolyBucket().getPolys().size(), is(2));
 
     }
 

@@ -1,8 +1,6 @@
 package com.unidev.polydata;
 
 import com.unidev.polydata.domain.BasicPoly;
-import com.unidev.polydata.domain.Poly;
-
 import java.io.File;
 
 /**

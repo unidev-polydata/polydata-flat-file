@@ -30,4 +30,7 @@ public class FlatFileStorage  {
         this.file = file;
     }
 
+    public boolean hasPoly(String indexName) {
+        return false;
+    }
 }
