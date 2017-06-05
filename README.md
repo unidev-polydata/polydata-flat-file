@@ -2,23 +2,29 @@
 
 Flat file storage of poly records
 
-polydata-flat-file-storage - flat file poly storage
+polydata-flat-file-storage - organize storage of polydata records into json files and maintain index of files
 
-polydata-flat-file-storage-manager - module for managing multiple flat file storages
+(disabled) polydata-flat-file-storage-manager - module for managing multiple flat file storages
 
 Dependencies
 ============
 
+Current:
 ```
-com.unidev.polydata:polydata-flat-file-storage:2.1.0-SNAPSHOT
-com.unidev.polydata:polydata-flat-file-storage-manager:2.1.0-SNAPSHOT
+com.unidev.polydata:polydata-flat-file-storage:2.2.0-SNAPSHOT
+```
+
+Last release:
+```
+com.unidev.polydata:polydata-flat-file-storage:2.1.0
+com.unidev.polydata:polydata-flat-file-storage-manager:2.1.0
 ```
 
 
 License
 =======
  
-    Copyright (c) 2015,2016 Denis O <denis@universal-development.com>
+    Copyright (c) 2015,2016,2017 Denis O <denis.o@linux.com>
  
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
