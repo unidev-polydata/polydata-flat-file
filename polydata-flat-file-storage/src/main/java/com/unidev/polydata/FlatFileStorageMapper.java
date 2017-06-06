@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import com.unidev.polydata.domain.bucket.BasicPolyBucket;
+import com.unidev.polydata.domain.bucket.PolyBucket;
 import java.io.*;
 
 /**
@@ -55,16 +57,17 @@ public class FlatFileStorageMapper {
 
     public FlatFileStorage load() {
         try {
-            return STORAGE_OBJECT_MAPPER.readValue(loadSource, FlatFileStorage.class);
+            BasicPolyBucket basicPolyBucket = STORAGE_OBJECT_MAPPER.readValue(loadSource, BasicPolyBucket.class);
+            return new FlatFileStorage(basicPolyBucket);
         } catch (IOException e) {
             e.printStackTrace();
             throw new FlatFileStorageException(e);
         }
     }
 
-    public void save(FlatFileStorage storage) {
+    void save(FlatFileStorage storage) {
         try {
-            STORAGE_OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValue(saveSource, storage);
+            STORAGE_OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValue(saveSource, storage.getPolyBucket());
         } catch (IOException e) {
             e.printStackTrace();
             throw new FlatFileStorageException(e);

@@ -57,15 +57,15 @@ public class TestFlatFileStorage {
         flatFileStorage.persist(basicPoly);
         assertThat(flatFileStorage.hasPoly("1"), is(true));
 
-        boolean removeResult = flatFileStorage.remove("1");
+        boolean removeResult = flatFileStorage.removeById("1");
         assertThat(removeResult, is(true));
 
         assertThat(flatFileStorage.hasPoly("1"), is(false));
 
-        removeResult = flatFileStorage.remove("1");
+        removeResult = flatFileStorage.removeById("1");
         assertThat(removeResult, is(false));
 
-        removeResult = flatFileStorage.remove("2");
+        removeResult = flatFileStorage.removeById("2");
         assertThat(removeResult, is(false));
     }
 
@@ -74,13 +74,13 @@ public class TestFlatFileStorage {
         FlatFileStorage flatFileStorage = new FlatFileStorage();
         BasicPoly basicPoly = new BasicPoly()._id("potato_id").link("tomato");
 
-        Poly poly = flatFileStorage.fetchById("potato_id");
+        BasicPoly poly = flatFileStorage.fetchPoly("potato_id");
         assertThat(poly, is(nullValue()));
 
         flatFileStorage.persist(basicPoly);
 
 
-        Poly persistedPoly = flatFileStorage.fetchById("potato_id");
+        BasicPoly persistedPoly = flatFileStorage.fetchPoly("potato_id");
         assertThat(persistedPoly, is(not(nullValue())));
         assertThat(persistedPoly._id(), is("potato_id"));
     }
@@ -89,21 +89,21 @@ public class TestFlatFileStorage {
     public void testPolyAdding() {
         FlatFileStorage flatFileStorage = new FlatFileStorage();
 
-        assertThat(flatFileStorage.list().isEmpty(), is(true));
+        assertThat(flatFileStorage.polys().isEmpty(), is(true));
 
         BasicPoly potatoPoly = new BasicPoly()._id("potato_id");
         BasicPoly tomatoPoly = new BasicPoly()._id("tomato_id");
 
         flatFileStorage.persist(potatoPoly);
 
-        assertThat(flatFileStorage.list().isEmpty(), is(false));
-        assertThat(flatFileStorage.list().size(), is(1));
+        assertThat(flatFileStorage.polys().isEmpty(), is(false));
+        assertThat(flatFileStorage.polys().size(), is(1));
 
         flatFileStorage.addFirst(tomatoPoly);
 
-        assertThat(flatFileStorage.list().size(), is(2));
+        assertThat(flatFileStorage.polys().size(), is(2));
 
-        Poly poly = flatFileStorage.list().iterator().next();
+        BasicPoly poly = flatFileStorage.polys().iterator().next();
         assertThat(poly._id(), is("tomato_id"));
     }
 

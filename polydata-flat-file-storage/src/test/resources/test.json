@@ -3,7 +3,7 @@
     "_id" : "metadata_id",
     "tomato" : "potato"
   },
-  "list" : [
+  "polys" : [
     {
       "link" : "tomato2",
       "_id" : "2"
