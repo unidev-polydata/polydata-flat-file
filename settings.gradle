@@ -1,2 +1,1 @@
 include "polydata-storage-flat-file"
-include "polydata-storage-flat-file-manager"
