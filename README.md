@@ -26,7 +26,6 @@ com.unidev.polydata:polydata-flat-file-storage:2.2.0-SNAPSHOT
 Last release:
 ```
 com.unidev.polydata:polydata-flat-file-storage:2.1.0
-com.unidev.polydata:polydata-flat-file-storage-manager:2.1.0
 ```
 
 
