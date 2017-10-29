@@ -3,10 +3,14 @@ package com.unidev.polydata;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-
 import com.unidev.polydata.domain.bucket.BasicPolyBucket;
-import com.unidev.polydata.domain.bucket.PolyBucket;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Flat file storage load/save operations
@@ -21,9 +25,12 @@ public class FlatFileStorageMapper {
     private InputStream loadSource;
     private OutputStream saveSource;
 
-    public FlatFileStorageMapper() {}
+    public FlatFileStorageMapper() {
+    }
 
-    public static FlatFileStorageMapper storageMapper() {return new FlatFileStorageMapper();}
+    public static FlatFileStorageMapper storageMapper() {
+        return new FlatFileStorageMapper();
+    }
 
     public FlatFileStorageMapper loadSource(InputStream inputStream) {
         this.loadSource = inputStream;
@@ -57,7 +64,8 @@ public class FlatFileStorageMapper {
 
     public FlatFileStorage load() {
         try {
-            BasicPolyBucket basicPolyBucket = STORAGE_OBJECT_MAPPER.readValue(loadSource, BasicPolyBucket.class);
+            BasicPolyBucket basicPolyBucket = STORAGE_OBJECT_MAPPER
+                .readValue(loadSource, BasicPolyBucket.class);
             return new FlatFileStorage(basicPolyBucket);
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,7 +75,8 @@ public class FlatFileStorageMapper {
 
     void save(FlatFileStorage storage) {
         try {
-            STORAGE_OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValue(saveSource, storage.getPolyBucket());
+            STORAGE_OBJECT_MAPPER.writerWithDefaultPrettyPrinter()
+                .writeValue(saveSource, storage.getPolyBucket());
         } catch (IOException e) {
             e.printStackTrace();
             throw new FlatFileStorageException(e);
