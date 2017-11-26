@@ -1,1 +1,3 @@
-include "polydata-storage-flat-file"
+include "polydata-storage-flat-file-common"
+include "polydata-storage-flat-file-json"
+include "polydata-storage-flat-file-protobuf"
