@@ -1,0 +1,8 @@
+dependencies {
+    compile "com.unidev.polydata:polydata-domain:$project.polydata"
+    compile "com.unidev.polydata:polydata-storage:$project.polydata"
+
+    compile "com.google.protobuf:protobuf-java:3.5.0"
+
+}
+
