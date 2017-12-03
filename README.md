@@ -1,6 +1,6 @@
 # polydata-flat-file
 
-[![Build Status](https://travis-ci.org/unidev-polydata/polydata-flat-file-storage-android.svg?branch=master)](https://travis-ci.org/unidev-polydata/polydata-flat-file-storage-android)
+[![Build Status](https://travis-ci.org/unidev-polydata/polydata-storage-flat-file.svg?branch=master)](https://travis-ci.org/unidev-polydata/polydata-storage-flat-file)
 
 Flat file storage of poly records
 
