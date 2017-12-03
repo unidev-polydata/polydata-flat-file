@@ -1,5 +1,8 @@
 language: java
 jdk:
   - oraclejdk8
+services: mongodb
+install:
+ - ./gradlew assemble
 script:
-  - ./gradlew clean test   -PtravisEnv
+  - ./gradlew clean test
