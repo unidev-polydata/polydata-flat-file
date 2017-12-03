@@ -1,5 +1,7 @@
 # polydata-flat-file
 
+[![Build Status](https://travis-ci.org/unidev-polydata/polydata-flat-file-storage-android.svg?branch=master)](https://travis-ci.org/unidev-polydata/polydata-flat-file-storage-android)
+
 Flat file storage of poly records
 
 polydata-flat-file-storage - organize storage of polydata records into json files and maintain index of files
