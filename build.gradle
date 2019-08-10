@@ -1,5 +1,5 @@
-project.ext.unidevPlatformVersion = "2.0.0"
-project.ext.polydata = "2.1.0"
+project.ext.unidevPlatformVersion = "3.2.8"
+project.ext.polydata = "2.2.4-SNAPSHOT"
 
 
 subprojects {
@@ -31,8 +31,8 @@ subprojects {
     }
 
     tasks.withType(JavaCompile) {
-        sourceCompatibility = "1.7"
-        targetCompatibility = "1.7"
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
     }
 
     task sourcesJar(type: Jar, dependsOn: classes) {

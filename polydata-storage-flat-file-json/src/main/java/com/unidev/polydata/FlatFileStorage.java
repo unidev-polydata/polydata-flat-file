@@ -1,73 +1,55 @@
 package com.unidev.polydata;
 
-import com.unidev.polydata.domain.BasicPoly;
-import com.unidev.polydata.domain.BasicPolyList;
+import com.unidev.polydata.domain.*;
 import com.unidev.polydata.domain.bucket.BasicPolyBucket;
+import com.unidev.polydata.storage.PolyStorage;
+
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Flat file poly storage, storage is separated in metadata poly and list of records
  */
-public class FlatFileStorage  {
+public class FlatFileStorage implements PolyStorage {
 
-    private BasicPolyBucket polyBucket;
 
-    public FlatFileStorage() {
-        polyBucket = BasicPolyBucket.newBucket();
-        polyBucket.setMetadata(BasicPoly.newPoly());
-        polyBucket.setPolys(BasicPolyList.newList());
+    @Override
+    public <P extends Poly> Optional<P> metadata(String container) {
+        return Optional.empty();
     }
 
-    public FlatFileStorage(BasicPolyBucket polyBucket) {
-        this.polyBucket = polyBucket;
+    @Override
+    public <P extends Poly> Optional<P> fetchById(String container, String id) {
+        return Optional.empty();
     }
 
-    public BasicPoly metadata() {
-        return polyBucket.metadata();
-    }
-
-    public BasicPolyList polys() {
-        return polyBucket.polys();
-    }
-
-    public BasicPolyBucket getPolyBucket() {
-        return polyBucket;
-    }
-
-    public void setPolyBucket(BasicPolyBucket polyBucket) {
-        this.polyBucket = polyBucket;
-    }
-
-    public boolean hasPoly(String polyId) {
-        BasicPoly poly = fetchPoly(polyId);
-        if (poly == null) {
-            return false;
-        }
-        return true;
-    }
-
-    public BasicPoly fetchPoly(String polyId) {
-        for(BasicPoly poly : polys()) {
-            if (polyId.equalsIgnoreCase(poly._id())) {
-                return poly;
-            }
-        }
+    @Override
+    public <P extends Poly> P persist(String container, P poly) {
         return null;
     }
 
-    public boolean removeById(String polyId) {
-        BasicPoly poly = fetchPoly(polyId);
-        if (poly == null) {
-            return false;
-        }
-        polyBucket.getPolys().remove(poly);
-        return true;
+    @Override
+    public <P extends Poly> P persistIndex(String container, Map<String, Object> keys, P poly) {
+        return null;
     }
 
-    public void persist(BasicPoly basicPoly) {
-        polys().add(basicPoly);
+    @Override
+    public <P extends Poly> P persistMetadata(String container, P metadata) {
+        return null;
     }
 
-    public void addFirst(BasicPoly basicPoly) {
-        polys().add(0, basicPoly);
+    @Override
+    public <P extends PolyList> P query(String container, PolyQuery polyQuery) {
+        return null;
+    }
+
+    @Override
+    public <P extends PolyList> P queryIndex(String container, PolyQuery polyQuery) {
+        return null;
+    }
+
+    @Override
+    public boolean removePoly(String container, String id) {
+        return false;
     }
 }
