@@ -1,6 +1,9 @@
 package com.unidev.polydata;
 
-import com.unidev.polydata.domain.*;
+import com.unidev.polydata.domain.BasicPoly;
+import com.unidev.polydata.domain.Poly;
+import com.unidev.polydata.domain.PolyList;
+import com.unidev.polydata.domain.PolyQuery;
 import com.unidev.polydata.model.FlatFileModel;
 import com.unidev.polydata.storage.PolyStorage;
 import lombok.AllArgsConstructor;
@@ -26,7 +29,7 @@ public class FlatFileStorage implements PolyStorage {
     public HashMap<String, BasicPoly> fetchMetadata() {
         return flatFileModel.getMetadata();
     }
-    
+
     public Optional<HashMap<String, BasicPoly>> fetchPolyMap(String container) {
         return Optional.ofNullable(flatFileModel.getData().get(container));
     }

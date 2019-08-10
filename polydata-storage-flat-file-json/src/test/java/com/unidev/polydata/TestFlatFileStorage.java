@@ -40,7 +40,7 @@ public class TestFlatFileStorage {
 
         assertThat(storage, is(not(nullValue())));
         assertThat(storage.metadata("main"), is(not(nullValue())));
-        assertThat(storage.metadata("main").get()._id(), is ("metadata_id"));
+        assertThat(storage.metadata("main").get()._id(), is("metadata_id"));
 
         assertThat(storage.fetchPolyMap("main").get().size(), is(2));
         assertThat(storage.fetchById("main", "tomato").get().link(), is("tomato"));

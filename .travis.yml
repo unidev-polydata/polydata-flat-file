@@ -3,6 +3,6 @@ jdk:
   - oraclejdk8
 services: mongodb
 install:
- - ./gradlew assemble
+  - ./gradlew assemble
 script:
   - ./gradlew clean test

@@ -7,20 +7,19 @@
   "data": {
     "main": {
       "tomato": {
-        "data" : {
-          "link" : "tomato",
-          "_id" : "1",
+        "data": {
+          "link": "tomato",
+          "_id": "1",
           "custom_key": "custom_value"
         },
-        "metadata" : {
-          "data" : { },
-          "metadata" : null,
-          "_id" : null,
-          "link" : null
+        "metadata": {
+          "data": {},
+          "metadata": null,
+          "_id": null,
+          "link": null
         },
-        "_id" : "1",
-        "link" : "tomato"
-
+        "_id": "1",
+        "link": "tomato"
       },
       "potato": {
       }
