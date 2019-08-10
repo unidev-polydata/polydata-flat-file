@@ -17,11 +17,13 @@ public class FlatFileModel {
     /**
      * container:metadata
      */
+    @Builder.Default
     private HashMap<String, BasicPoly> metadata = new HashMap<>();
 
     /**
      * {container: data{id: poly}}
      */
+    @Builder.Default
     private HashMap<String, HashMap<String, BasicPoly>> data = new HashMap<>();
 
 }

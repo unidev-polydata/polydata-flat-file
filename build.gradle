@@ -1,5 +1,6 @@
 project.ext.unidevPlatformVersion = "3.2.8"
 project.ext.polydata = "2.2.4-SNAPSHOT"
+project.ext.lombokVersion = "1.18.4"
 
 
 subprojects {
@@ -16,6 +17,11 @@ subprojects {
     apply from: 'http://dev.local/gradle/javadoc.groovy'
 
     dependencies {
+        compileOnly("org.projectlombok:lombok:${project.lombokVersion}")
+        testCompileOnly("org.projectlombok:lombok:${project.lombokVersion}")
+        annotationProcessor("org.projectlombok:lombok:${project.lombokVersion}")
+        testAnnotationProcessor("org.projectlombok:lombok:${project.lombokVersion}")
+
         // test dependencies
         testCompile 'junit:junit:4.12'
         testCompile 'org.hamcrest:hamcrest-all:1.3'

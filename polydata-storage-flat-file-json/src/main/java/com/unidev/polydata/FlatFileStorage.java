@@ -1,11 +1,12 @@
 package com.unidev.polydata;
 
 import com.unidev.polydata.domain.*;
-import com.unidev.polydata.domain.bucket.BasicPolyBucket;
 import com.unidev.polydata.model.FlatFileModel;
 import com.unidev.polydata.storage.PolyStorage;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,17 @@ import java.util.Optional;
 @NoArgsConstructor
 public class FlatFileStorage implements PolyStorage {
 
-    private FlatFileModel flatFileModel;
+    @Getter
+    @Setter
+    private FlatFileModel flatFileModel = new FlatFileModel();
+
+    public HashMap<String, BasicPoly> fetchMetadata() {
+        return flatFileModel.getMetadata();
+    }
+    
+    public Optional<HashMap<String, BasicPoly>> fetchPolyMap(String container) {
+        return Optional.ofNullable(flatFileModel.getData().get(container));
+    }
 
     @Override
     public <P extends Poly> Optional<P> metadata(String container) {
@@ -38,6 +49,10 @@ public class FlatFileStorage implements PolyStorage {
     @Override
     public <P extends Poly> P persist(String container, P poly) {
         HashMap<String, BasicPoly> mapByContainer = flatFileModel.getData().get(container);
+        if (mapByContainer == null) {
+            mapByContainer = new HashMap<>();
+            flatFileModel.getData().put(container, mapByContainer);
+        }
         mapByContainer.put(poly._id(), (BasicPoly) poly);
         return poly;
     }

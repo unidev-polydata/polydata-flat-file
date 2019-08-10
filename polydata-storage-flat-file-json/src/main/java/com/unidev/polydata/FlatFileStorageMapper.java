@@ -1,9 +1,16 @@
 package com.unidev.polydata;
 
+import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.unidev.polydata.domain.BasicPoly;
+import com.unidev.polydata.domain.Poly;
 import com.unidev.polydata.domain.bucket.BasicPolyBucket;
+import com.unidev.polydata.model.FlatFileModel;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,6 +27,13 @@ public class FlatFileStorageMapper {
     public static ObjectMapper STORAGE_OBJECT_MAPPER = new ObjectMapper() {{
         configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
+        SimpleModule module = new SimpleModule("PolyModel", Version.unknownVersion());
+
+        SimpleAbstractTypeResolver resolver = new SimpleAbstractTypeResolver();
+        resolver.addMapping(Poly.class, BasicPoly.class);
+        module.setAbstractTypes(resolver);
+        registerModule(module);
     }};
 
     private InputStream loadSource;
@@ -64,9 +78,9 @@ public class FlatFileStorageMapper {
 
     public FlatFileStorage load() {
         try {
-            BasicPolyBucket basicPolyBucket = STORAGE_OBJECT_MAPPER
-                .readValue(loadSource, BasicPolyBucket.class);
-            return new FlatFileStorage(basicPolyBucket);
+            FlatFileModel model = STORAGE_OBJECT_MAPPER
+                .readValue(loadSource, FlatFileModel.class);
+            return new FlatFileStorage(model);
         } catch (IOException e) {
             e.printStackTrace();
             throw new FlatFileStorageException(e);
@@ -76,7 +90,7 @@ public class FlatFileStorageMapper {
     void save(FlatFileStorage storage) {
         try {
             STORAGE_OBJECT_MAPPER.writerWithDefaultPrettyPrinter()
-                .writeValue(saveSource, storage.getPolyBucket());
+                .writeValue(saveSource, storage.getFlatFileModel());
         } catch (IOException e) {
             e.printStackTrace();
             throw new FlatFileStorageException(e);

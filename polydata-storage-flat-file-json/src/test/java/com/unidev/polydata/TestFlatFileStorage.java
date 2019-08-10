@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -21,10 +22,10 @@ public class TestFlatFileStorage {
     public void testStorageSave() throws IOException {
 
         FlatFileStorage flatFileStorage = new FlatFileStorage();
-        flatFileStorage.metadata().put("tomato", "potato");
+        flatFileStorage.persistMetadata("main", BasicPoly.newPoly("tomato"));
 
         BasicPoly basicPoly = new BasicPoly()._id("1").link("tomato");
-        flatFileStorage.persist(basicPoly);
+        flatFileStorage.persist("main", basicPoly);
 
         File tempFile = File.createTempFile("storage", ".json");
         tempFile.deleteOnExit();
@@ -38,12 +39,12 @@ public class TestFlatFileStorage {
         FlatFileStorage storage = FlatFileStorageMapper.storageMapper().loadSource(inputStream).load();
 
         assertThat(storage, is(not(nullValue())));
-        assertThat(storage.metadata(), is(not(nullValue())));
-        assertThat(storage.metadata()._id(), is ("metadata_id"));
+        assertThat(storage.metadata("main"), is(not(nullValue())));
+        assertThat(storage.metadata("main").get()._id(), is ("metadata_id"));
 
-        assertThat(storage.polys().size(), is(2));
-        assertThat(storage.polys().get(1).link(), is("tomato"));
-        assertThat((String)storage.polys().get(1).fetch("custom_key"), is("custom_value"));
+        assertThat(storage.fetchPolyMap("main").get().size(), is(2));
+        assertThat(storage.fetchById("main", "tomato").get().link(), is("tomato"));
+        assertThat(storage.fetchById("main", "tomato").get().fetch("custom_key"), is("custom_value"));
     }
 
     @Test
@@ -52,20 +53,19 @@ public class TestFlatFileStorage {
 
         BasicPoly basicPoly = new BasicPoly()._id("1").link("tomato");
 
-        assertThat(flatFileStorage.hasPoly("1"), is(false));
+        assertThat(flatFileStorage.fetchById("main", "1").isPresent(), is(false));
+        flatFileStorage.persist("main", basicPoly);
+        assertThat(flatFileStorage.fetchById("main", "1").isPresent(), is(true));
 
-        flatFileStorage.persist(basicPoly);
-        assertThat(flatFileStorage.hasPoly("1"), is(true));
-
-        boolean removeResult = flatFileStorage.removeById("1");
+        boolean removeResult = flatFileStorage.removePoly("main", "1");
         assertThat(removeResult, is(true));
 
-        assertThat(flatFileStorage.hasPoly("1"), is(false));
+        assertThat(flatFileStorage.fetchById("main", "1").isPresent(), is(false));
 
-        removeResult = flatFileStorage.removeById("1");
+        removeResult = flatFileStorage.removePoly("main", "1");
         assertThat(removeResult, is(false));
 
-        removeResult = flatFileStorage.removeById("2");
+        removeResult = flatFileStorage.removePoly("main", "1");
         assertThat(removeResult, is(false));
     }
 
@@ -74,36 +74,34 @@ public class TestFlatFileStorage {
         FlatFileStorage flatFileStorage = new FlatFileStorage();
         BasicPoly basicPoly = new BasicPoly()._id("potato_id").link("tomato");
 
-        BasicPoly poly = flatFileStorage.fetchPoly("potato_id");
-        assertThat(poly, is(nullValue()));
+        assertThat(flatFileStorage.fetchById("main", "potato_id").isPresent(), is(false));
 
-        flatFileStorage.persist(basicPoly);
+        flatFileStorage.persist("main", basicPoly);
 
-
-        BasicPoly persistedPoly = flatFileStorage.fetchPoly("potato_id");
-        assertThat(persistedPoly, is(not(nullValue())));
-        assertThat(persistedPoly._id(), is("potato_id"));
+        Optional<BasicPoly> persistedPoly = flatFileStorage.fetchById("main", "potato_id");
+        assertThat(persistedPoly.isPresent(), is(true));
+        assertThat(persistedPoly.get()._id(), is("potato_id"));
     }
 
     @Test
     public void testPolyAdding() {
         FlatFileStorage flatFileStorage = new FlatFileStorage();
 
-        assertThat(flatFileStorage.polys().isEmpty(), is(true));
+        assertThat(flatFileStorage.fetchPolyMap("main").isPresent(), is(false));
 
         BasicPoly potatoPoly = new BasicPoly()._id("potato_id");
         BasicPoly tomatoPoly = new BasicPoly()._id("tomato_id");
 
-        flatFileStorage.persist(potatoPoly);
+        flatFileStorage.persist("main", potatoPoly);
 
-        assertThat(flatFileStorage.polys().isEmpty(), is(false));
-        assertThat(flatFileStorage.polys().size(), is(1));
+        assertThat(flatFileStorage.fetchPolyMap("main").get().isEmpty(), is(false));
+        assertThat(flatFileStorage.fetchPolyMap("main").get().size(), is(1));
 
-        flatFileStorage.addFirst(tomatoPoly);
+        flatFileStorage.persist("main", tomatoPoly);
 
-        assertThat(flatFileStorage.polys().size(), is(2));
+        assertThat(flatFileStorage.fetchPolyMap("main").get().size(), is(2));
 
-        BasicPoly poly = flatFileStorage.polys().iterator().next();
+        BasicPoly poly = (BasicPoly) flatFileStorage.fetchById("main", "tomato_id").get();
         assertThat(poly._id(), is("tomato_id"));
     }
 
