@@ -9,13 +9,11 @@ subprojects {
     apply plugin: 'idea'
 
     group = 'com.unidev.polydata'
-    version = '2.3.0-SNAPSHOT'
+    version = '2.4.0-SNAPSHOT'
 
-    apply from: 'http://dev.local/gradle/uploadArchivesSftp.groovy'
+    apply from: 'http://dev.local/gradle/uploadArchivesG5.groovy'
     apply from: 'http://dev.local/gradle/defaultRepositories.groovy'
     apply from: 'http://dev.local/gradle/javadoc.groovy'
-
-    
 
     dependencies {
         // test dependencies
