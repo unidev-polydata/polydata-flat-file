@@ -81,8 +81,7 @@ public class FlatFileStorageMapper {
 
     void save(FlatFileStorage storage) {
         try {
-            STORAGE_OBJECT_MAPPER.writerWithDefaultPrettyPrinter()
-                    .writeValue(saveSource, storage.getFlatFileModel());
+            STORAGE_OBJECT_MAPPER.writeValue(saveSource, storage.getFlatFileModel());
         } catch (IOException e) {
             e.printStackTrace();
             throw new FlatFileStorageException(e);
